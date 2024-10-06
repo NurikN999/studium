@@ -1,0 +1,62 @@
+version: '3.5'
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: studium-api-nginx
+    working_dir: /var/www/studium-api
+    volumes:
+      - ./:/var/www/studium-api
+      - ./docker/nginx/studium-local.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+      - postgres
+    depends_on:
+      - php
+      - postgres
+    ports:
+      - 8023:80
+
+  redis:
+    container_name: studium-api-redis
+    build: ./docker/redis
+    volumes:
+      - redis_studium-api:/data
+    ports:
+      - "6356:6379"
+
+  php:
+    container_name: studium-api-php
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/studium-api
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/z-php.ini
+    working_dir: /var/www/studium-api
+    depends_on:
+      - redis
+      - postgres
+    links:
+      - redis
+      - postgres
+    ports:
+      - 9078:9000
+
+  postgres:
+    container_name: studium-api-postgres
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: alem_erp_db
+      POSTGRES_USER: alem_erp_user
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_studium-api:/data/postgres
+    ports:
+      - 5482:5432
+
+volumes:
+  postgres_studium-api:
+    driver: local
+  redis_studium-api:
+    driver: local
