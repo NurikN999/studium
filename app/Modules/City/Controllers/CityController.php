@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\City\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\City\Resources\CityResource;
 use App\Modules\City\Services\CityService;
 
 final class CityController extends Controller
@@ -20,7 +21,7 @@ final class CityController extends Controller
     {
         return $this->successResponse(
             message: 'List of cities',
-            data: $this->cityService->all(),
+            data: CityResource::collection($this->cityService->all()),
             code: 200
         );
     }
