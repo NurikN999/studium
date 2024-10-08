@@ -15,6 +15,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, HasUuids;
 
+    public const ORIGINAL_USER_ID = 'oui';
+
     /**
      * The attributes that are mass assignable.
      *
