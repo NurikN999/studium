@@ -39,4 +39,9 @@ class CourseRepository implements CourseRepositoryInterface
     {
         return $course->delete();
     }
+
+    public function find(int $id): Course
+    {
+        return Course::findOrFail($id);
+    }
 }
