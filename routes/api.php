@@ -11,3 +11,13 @@ Route::post('auth/logout', [AuthController::class, 'logout']);
 
 
 Route::get('cities', [CityController::class, 'index']);
+
+Route::middleware('jwt')->group(function () {
+    Route::prefix('courses')->group(function () {
+        Route::get('/', 'CourseController@index');
+        Route::post('/', 'CourseController@store');
+        Route::get('/{course}', 'CourseController@show');
+        Route::patch('/{course}', 'CourseController@update');
+        Route::delete('/{course}', 'CourseController@destroy');
+    });
+});
