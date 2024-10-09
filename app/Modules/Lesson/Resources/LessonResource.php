@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Course\Resources;
+namespace App\Modules\Lesson\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-final class CourseResource extends JsonResource
+final class LessonResource extends JsonResource
 {
     public function toArray($request): array
     {
