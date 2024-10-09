@@ -21,6 +21,7 @@ Route::middleware('jwt.auth')->group(function () {
         Route::get('/{course}', [CourseController::class, 'show']);
         Route::patch('/{course}', [CourseController::class, 'update']);
         Route::delete('/{course}', [CourseController::class, 'destroy']);
+        Route::post('/{course}/lessons', [CourseController::class, 'attachLesson']);
     });
 
     Route::prefix('lessons')->group(function () {
