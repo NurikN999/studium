@@ -7,6 +7,8 @@ namespace App\Modules\Course\Repositories;
 use App\Modules\Course\DTO\CourseDTO;
 use App\Modules\Course\Models\Course;
 use App\Modules\Course\Repositories\Interfaces\CourseRepositoryInterface;
+use App\Modules\Lesson\DTO\LessonDTO;
+use App\Modules\Lesson\Repositories\LessonRepository;
 use Illuminate\Support\Facades\DB;
 
 class CourseRepository implements CourseRepositoryInterface
@@ -43,5 +45,13 @@ class CourseRepository implements CourseRepositoryInterface
     public function find(int $id): Course
     {
         return Course::findOrFail($id);
+    }
+
+    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course
+    {
+        $lesson = (new LessonRepository())->create($lessonDTO);
+        $course->lessons()->sync($lesson->id);
+
+        return $course;
     }
 }

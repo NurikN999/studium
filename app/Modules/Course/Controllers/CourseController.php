@@ -6,6 +6,7 @@ namespace App\Modules\Course\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Course\Models\Course;
+use App\Modules\Course\Requests\StoreCourseLessonsRequest;
 use App\Modules\Course\Requests\StoreCourseRequest;
 use App\Modules\Course\Requests\UpdateCourseRequest;
 use App\Modules\Course\Resources\CourseResource;
@@ -22,7 +23,11 @@ class CourseController extends Controller
 
     public function index()
     {
-        return $this->courseService->all();
+        return $this->successResponse(
+            data: CourseResource::collection($this->courseService->all()),
+            message: 'Courses retrieved successfully',
+            code: 200
+        );
     }
 
     public function store(StoreCourseRequest $request)
@@ -50,7 +55,7 @@ class CourseController extends Controller
     {
         return $this->successResponse(
             message: 'Course retrieved successfully',
-            data: new CourseResource($course),
+            data: new CourseResource($course->load('lessons')),
             code: 200
         );
     }
@@ -63,6 +68,17 @@ class CourseController extends Controller
             message: 'Course deleted successfully',
             data: null,
             code: 204
+        );
+    }
+
+    public function attachLessons(Course $course, StoreCourseLessonsRequest $request)
+    {
+        $course = $this->courseService->attachLessons($course, $request->getDTO());
+
+        return $this->successResponse(
+            message: 'Lesson attached to course successfully',
+            data: new CourseResource($course->load('lessons')),
+            code: 200
         );
     }
 }

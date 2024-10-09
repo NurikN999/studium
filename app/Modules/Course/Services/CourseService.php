@@ -7,6 +7,7 @@ namespace App\Modules\Course\Services;
 use App\Modules\Course\DTO\CourseDTO;
 use App\Modules\Course\Models\Course;
 use App\Modules\Course\Repositories\Interfaces\CourseRepositoryInterface;
+use App\Modules\Lesson\DTO\LessonDTO;
 
 class CourseService
 {
@@ -30,5 +31,10 @@ class CourseService
     public function update(CourseDTO $courseDTO, Course $course): Course
     {
         return $this->courseRepository->update($courseDTO, $course);
+    }
+
+    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course
+    {
+        return $this->courseRepository->attachLessons($course, $lessonDTO);
     }
 }

@@ -6,6 +6,7 @@ namespace App\Modules\Course\Repositories\Interfaces;
 
 use App\Modules\Course\DTO\CourseDTO;
 use App\Modules\Course\Models\Course;
+use App\Modules\Lesson\DTO\LessonDTO;
 
 interface CourseRepositoryInterface
 {
@@ -14,4 +15,5 @@ interface CourseRepositoryInterface
     public function update(CourseDTO $courseDTO, Course $course);
     public function delete(Course $course);
     public function find(int $id);
+    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course;
 }
