@@ -15,5 +15,5 @@ interface CourseRepositoryInterface
     public function update(CourseDTO $courseDTO, Course $course);
     public function delete(Course $course);
     public function find(int $id);
-    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course;
+    public function attachLesson(Course $course, LessonDTO $lessonDTO): Course;
 }

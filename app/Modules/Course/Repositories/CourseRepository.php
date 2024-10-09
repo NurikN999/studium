@@ -47,7 +47,7 @@ class CourseRepository implements CourseRepositoryInterface
         return Course::findOrFail($id);
     }
 
-    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course
+    public function attachLesson(Course $course, LessonDTO $lessonDTO): Course
     {
         $lesson = (new LessonRepository())->create($lessonDTO);
         $course->lessons()->sync($lesson->id);

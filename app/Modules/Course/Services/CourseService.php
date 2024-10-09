@@ -33,8 +33,8 @@ class CourseService
         return $this->courseRepository->update($courseDTO, $course);
     }
 
-    public function attachLessons(Course $course, LessonDTO $lessonDTO): Course
+    public function attachLesson(Course $course, LessonDTO $lessonDTO): Course
     {
-        return $this->courseRepository->attachLessons($course, $lessonDTO);
+        return $this->courseRepository->attachLesson($course, $lessonDTO);
     }
 }

@@ -71,9 +71,9 @@ class CourseController extends Controller
         );
     }
 
-    public function attachLessons(Course $course, StoreCourseLessonsRequest $request)
+    public function attachLesson(Course $course, StoreCourseLessonsRequest $request)
     {
-        $course = $this->courseService->attachLessons($course, $request->getDTO());
+        $course = $this->courseService->attachLesson($course, $request->getDTO());
 
         return $this->successResponse(
             message: 'Lesson attached to course successfully',
